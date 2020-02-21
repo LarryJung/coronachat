@@ -27,11 +27,8 @@ public class UserController {
         if (session.getAttribute("login") != null) {
             throw new RuntimeException("Already login!");
         }
-        if (userService.isValidForLogin(loginDto)) {
-            session.getAttributes().put("login", loginDto);
-        } else {
-            throw new RuntimeException("Can't login");
-        }
+        User user = userService.checkForLogin(loginDto);
+        session.getAttributes().put("login", new Principal(user.getEmail(), user.getName()));
     }
 
     @PostMapping("/logout")
@@ -39,6 +36,5 @@ public class UserController {
         session.getAttributes().remove("login");
         session.getAttributes().forEach((k, v) -> System.out.println(k + " : " + v));
     }
-
 
 }

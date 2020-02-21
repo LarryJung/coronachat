@@ -7,6 +7,7 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -28,10 +29,16 @@ public class User {
 
     @JsonIgnore
     @OneToMany(mappedBy = "participant")
-    private List<ChannelJoin> channelJoins;
+    private List<ChannelJoin> channelJoins = new ArrayList<>();
 
     public boolean isPassword(String password) {
         return this.password.equals(password);
     }
 
+    public void addChannelJoin(ChannelJoin channelJoin) {
+//        if (channelJoin == null) {
+//            this.channelJoins = new ArrayList<>();
+//        }
+        this.channelJoins.add(channelJoin);
+    }
 }

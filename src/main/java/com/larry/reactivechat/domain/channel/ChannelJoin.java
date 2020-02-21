@@ -21,4 +21,14 @@ public class ChannelJoin {
     @JoinColumn(name = "participant_id")
     private User participant;
 
+    public ChannelJoin(Channel channel, User participant) {
+        this.channel = channel;
+        this.participant = participant;
+        participant.addChannelJoin(this);
+    }
+
+    public ChannelJoin out() {
+        channel.out();
+        return this;
+    }
 }
