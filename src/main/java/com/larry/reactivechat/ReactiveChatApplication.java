@@ -15,9 +15,6 @@ import org.springframework.web.reactive.result.method.annotation.ArgumentResolve
 @SpringBootApplication
 public class ReactiveChatApplication implements WebFluxConfigurer {
 
-    @Autowired
-    private AuthService authService;
-
     public static void main(String[] args) {
         SpringApplication.run(ReactiveChatApplication.class, args);
     }
@@ -29,7 +26,7 @@ public class ReactiveChatApplication implements WebFluxConfigurer {
 
     @Bean
     public HandlerMethodArgumentResolver loginUserArgumentResolver() {
-        return new LoginUserHandlerMethodArgumentResolver(authService);
+        return new LoginUserHandlerMethodArgumentResolver();
     }
 
 }

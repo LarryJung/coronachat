@@ -2,11 +2,13 @@ package com.larry.reactivechat.domain.channel;
 
 import com.larry.reactivechat.domain.user.User;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
 @Entity
+@NoArgsConstructor
 public class ChannelJoin {
 
     @Id

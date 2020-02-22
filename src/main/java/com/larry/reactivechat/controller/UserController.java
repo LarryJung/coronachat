@@ -28,7 +28,7 @@ public class UserController {
             throw new RuntimeException("Already login!");
         }
         User user = userService.checkForLogin(loginDto);
-        session.getAttributes().put("login", new Principal(user.getEmail(), user.getName()));
+        session.getAttributes().put("login", new Principal(user.getId(), user.getEmail(), user.getName()));
     }
 
     @PostMapping("/logout")

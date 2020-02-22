@@ -9,5 +9,5 @@ import reactor.core.publisher.Flux;
 public interface ChatMessageRepo extends ReactiveMongoRepository<Message, String> {
 
     @Tailable
-    Flux<Message> findWithTailableCursorByChannelId(String channelId);
+    Flux<Message> findWithTailableCursorByChannelId(Long channelId);
 }

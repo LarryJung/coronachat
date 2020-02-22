@@ -3,6 +3,7 @@ package com.larry.reactivechat.domain.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.larry.reactivechat.domain.channel.ChannelJoin;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Data
 @Entity
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -36,9 +38,6 @@ public class User {
     }
 
     public void addChannelJoin(ChannelJoin channelJoin) {
-//        if (channelJoin == null) {
-//            this.channelJoins = new ArrayList<>();
-//        }
         this.channelJoins.add(channelJoin);
     }
 }

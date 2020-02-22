@@ -14,8 +14,6 @@ import reactor.core.publisher.Mono;
 @Component
 public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
-    private final AuthService authService;
-
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         return parameter.hasParameterAnnotation(LoginUser.class);
@@ -29,7 +27,7 @@ public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgu
                     if (maybePrincipal == null) {
                         throw new RuntimeException("Login required!");
                     }
-                    return authService.convertFromPrincipal((Principal) maybePrincipal);
+                    return (Principal) maybePrincipal;
                 });
     }
 
