@@ -4,7 +4,9 @@ import com.larry.reactivechat.domain.channel.*;
 import com.larry.reactivechat.util.LoginUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 import java.util.Map;
@@ -38,6 +40,16 @@ public class ChannelController {
         return channelService.findAll();
     }
 
+    @GetMapping("/{channelId}/temp-out")
+    public List<Channel> tempGoOut(@LoginUser Principal principal, @PathVariable Long channelId) {
+        return channelService.tempGoOut(principal.getId(), channelId);
+    }
+
+    @GetMapping(value = "/unreads", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<UnReadDto> streamMessages(@LoginUser Principal principal) {
+        return channelService.getUnReads(principal.getId());
+    }
+
     @GetMapping("/me")
     public List<Channel> getJoinChannelList(@LoginUser Principal principal) {
         return channelService.findAllJoinChannel(principal.getId());
@@ -50,3 +62,14 @@ public class ChannelController {
     }
 
 }
+
+/**
+ *
+ * // TODO
+ * 테스트 케이스 정리
+ * 1.
+ * 뷰 만들기
+ * js로 간단 테스트
+ *
+ *
+  */

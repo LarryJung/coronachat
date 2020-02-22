@@ -31,4 +31,15 @@ public class JoinService {
     public void out(Long userId, Long channelId) {
         joinRepository.delete(findJoin(userId, channelId).out());
     }
+
+    public void addUnReadCount(Long channelId) {
+        joinRepository.findAllByChannel_Id(channelId)
+                .stream()
+                .filter(channelJoin -> !channelJoin.isLooking())
+                .forEach(channelJoin -> channelJoin.addUnReadCount());
+    }
+
+    public void initializeUnReadCount(Long userId, Long channelId) {
+        findJoin(userId, channelId).look();
+    }
 }

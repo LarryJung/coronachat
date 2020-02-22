@@ -28,7 +28,7 @@ public class ChatMessageController {
 
     @GetMapping(value = "/chats/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<Message> streamMessages(@LoginUser Principal principal, @RequestParam Long channelId) {
-        return chatMessageService.getMessages(channelId);
+        return chatMessageService.getMessages(principal.getId(), channelId);
     }
 
 }

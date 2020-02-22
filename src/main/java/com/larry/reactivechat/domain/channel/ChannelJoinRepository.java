@@ -9,5 +9,7 @@ public interface ChannelJoinRepository extends JpaRepository<ChannelJoin, Long> 
 
     List<ChannelJoin> findAllByParticipant_Id(Long userId);
 
+    List<ChannelJoin> findAllByChannel_Id(Long channelId);
+
     Optional<ChannelJoin> findByParticipant_IdAndChannel_Id(Long userId, Long channelId);
 }

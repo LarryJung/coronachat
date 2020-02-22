@@ -1,11 +1,14 @@
 package com.larry.reactivechat.domain.channel;
 
+import com.larry.reactivechat.controller.UnReadDto;
+import com.larry.reactivechat.domain.message.Message;
 import com.larry.reactivechat.domain.user.User;
 import com.larry.reactivechat.domain.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -61,4 +64,12 @@ public class ChannelService {
         return channelRepository.findById(channelId).orElseThrow(() -> new RuntimeException("there is no channel id :" + channelId));
     }
 
+    public List<Channel> tempGoOut(Long userId, Long channelId) {
+        joinService.findJoin(userId, channelId).notLook();
+        return findAllJoinChannel(userId);
+    }
+
+    public Flux<UnReadDto> getUnReads(Long userId) {
+        return Flux.fromIterable(joinService.findAllByUserId(userId)).map(channelJoin -> new UnReadDto(channelJoin.getId(), channelJoin.getUnReadMessageCount()));
+    }
 }
