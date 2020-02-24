@@ -36,7 +36,7 @@ public class ChannelController {
     }
 
     @GetMapping
-    public List<Channel> getChannelList(@LoginUser Principal principal) {
+    public List<Channel> getChannelList() {
         return channelService.findAll();
     }
 
